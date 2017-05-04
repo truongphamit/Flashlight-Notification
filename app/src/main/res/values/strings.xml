@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Flashlight Notification</string>
+    <string name="status">Status</string>
+    <string name="incoming_call">Incoming Call</string>
+    <string name="tap_to_setting">Tap to setting</string>
+    <string name="incoming_sms">Incoming SMS</string>
+    <string name="on_length">On length</string>
+    <string name="ms">%d ms</string>
+    <string name="time">%d time(s)</string>
+    <string name="off_length">Off length</string>
+    <string name="times">Times</string>
+    <string name="enable_for">Enable for</string>
+    <string name="normal">Normal</string>
+    <string name="vibration">Vibration</string>
+    <string name="silent">Silent</string>
+    <string name="advance">Advance</string>
+    <string name="notifications_app">Notifications app</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
