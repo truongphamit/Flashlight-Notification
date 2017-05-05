@@ -1,6 +1,7 @@
 package com.pqs.flashlightnotification.utils;
 
 import android.hardware.Camera;
+import android.os.CountDownTimer;
 
 /**
  * Created by truongpq on 5/3/17.
@@ -53,5 +54,21 @@ public class Flash {
             camera.stopPreview();
             state = false;
         }
+    }
+
+    public static void notifi() {
+        final Flash flash = Flash.getInstance();
+        new CountDownTimer(10000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                flash.switchFlash();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
     }
 }

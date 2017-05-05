@@ -32,6 +32,13 @@ public class Utils {
                 .neutralText("TEST")
                 .positiveText("SAVE")
                 .negativeText("CANCEL")
+                .autoDismiss(false)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
                 .build();
 
         View view = dialog.getCustomView();
@@ -84,16 +91,22 @@ public class Utils {
 
     public static void showSMSSettingsDialog(final Context context) {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .title(R.string.incoming_call)
+                .title(R.string.incoming_sms)
                 .customView(R.layout.incoming_sms_settings, false)
                 .neutralText("TEST")
                 .positiveText("SAVE")
                 .negativeText("CANCEL")
+                .autoDismiss(false)
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Flash flash = Flash.getInstance();
-                        flash.switchFlash();
+                        Flash.notifi();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
                     }
                 })
                 .build();
