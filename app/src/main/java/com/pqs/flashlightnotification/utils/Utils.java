@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.pqs.flashlightnotification.R;
+import com.pqs.flashlightnotification.provider.SharePreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,28 @@ public class Utils {
                 .positiveText("SAVE")
                 .negativeText("CANCEL")
                 .autoDismiss(false)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        View view = dialog.getCustomView();
+                        assert view != null;
+                        SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+                        SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+                        Flash.test(getLength(seekbar_on_length.getProgress()), getLength(seekbar_off_length.getProgress()));
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        View view = dialog.getCustomView();
+                        assert view != null;
+                        SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+                        SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+                        SharePreferenceManager.setOnLengthCall(context, seekbar_on_length.getProgress());
+                        SharePreferenceManager.setOffLengthCall(context, seekbar_off_length.getProgress());
+                        dialog.dismiss();
+                    }
+                })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -45,6 +68,8 @@ public class Utils {
         assert view != null;
         final TextView tv_on_length = (TextView) view.findViewById(R.id.tv_on_length);
         SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+        seekbar_on_length.setProgress(SharePreferenceManager.getOnLengthCall(context));
+        tv_on_length.setText(context.getString(R.string.ms, getLength(SharePreferenceManager.getOnLengthCall(context))));
         seekbar_on_length.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -65,6 +90,8 @@ public class Utils {
 
         final TextView tv_off_length = (TextView) view.findViewById(R.id.tv_off_length);
         SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+        seekbar_off_length.setProgress(SharePreferenceManager.getOffLengthCall(context));
+        tv_off_length.setText(context.getString(R.string.ms, getLength(SharePreferenceManager.getOffLengthCall(context))));
         seekbar_off_length.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -100,7 +127,25 @@ public class Utils {
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Flash.notifi();
+                        View view = dialog.getCustomView();
+                        assert view != null;
+                        SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+                        SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+                        Flash.test(getLength(seekbar_on_length.getProgress()), getLength(seekbar_off_length.getProgress()));
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        View view = dialog.getCustomView();
+                        assert view != null;
+                        SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+                        SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+                        SeekBar seekbar_times = (SeekBar) view.findViewById(R.id.seekbar_times);
+                        SharePreferenceManager.setOnLengthSMS(context, seekbar_on_length.getProgress());
+                        SharePreferenceManager.setOffLengthSMS(context, seekbar_off_length.getProgress());
+                        SharePreferenceManager.setTimesSMS(context, seekbar_times.getProgress());
+                        dialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -115,6 +160,8 @@ public class Utils {
         assert view != null;
         final TextView tv_on_length = (TextView) view.findViewById(R.id.tv_on_length);
         SeekBar seekbar_on_length = (SeekBar) view.findViewById(R.id.seekbar_on_length);
+        seekbar_on_length.setProgress(SharePreferenceManager.getOnLengthSMS(context));
+        tv_on_length.setText(context.getString(R.string.ms, getLength(SharePreferenceManager.getOnLengthSMS(context))));
         seekbar_on_length.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -135,6 +182,8 @@ public class Utils {
 
         final TextView tv_off_length = (TextView) view.findViewById(R.id.tv_off_length);
         SeekBar seekbar_off_length = (SeekBar) view.findViewById(R.id.seekbar_off_length);
+        seekbar_off_length.setProgress(SharePreferenceManager.getOffLengthSMS(context));
+        tv_off_length.setText(context.getString(R.string.ms, getLength(SharePreferenceManager.getOffLengthSMS(context))));
         seekbar_off_length.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -154,6 +203,8 @@ public class Utils {
 
         final TextView tv_times = (TextView) view.findViewById(R.id.tv_times);
         SeekBar seekbar_times = (SeekBar) view.findViewById(R.id.seekbar_times);
+        seekbar_times.setProgress(SharePreferenceManager.getTimesSMS(context));
+        tv_times.setText(context.getString(R.string.time, getTime(SharePreferenceManager.getTimesSMS(context))));
         seekbar_times.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

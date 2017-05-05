@@ -3,10 +3,14 @@ package com.pqs.flashlightnotification;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.pqs.flashlightnotification.fragments.ApplicationsFragment;
+import com.pqs.flashlightnotification.provider.SharePreferenceManager;
 import com.pqs.flashlightnotification.utils.Utils;
 
 import butterknife.BindView;
@@ -18,6 +22,21 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.switch_incoming_call)
+    Switch switch_incoming_call;
+
+    @BindView(R.id.switch_incoming_sms)
+    Switch switch_incoming_sms;
+
+    @BindView(R.id.switch_normal)
+    Switch switch_normal;
+
+    @BindView(R.id.switch_vibration)
+    Switch switch_vibration;
+
+    @BindView(R.id.switch_silent)
+    Switch switch_silent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        init();
     }
 
     @Override
@@ -52,5 +72,48 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.layout_notifications)
     public void onNotificationsClick(View view) {
         Utils.slideFragment(ApplicationsFragment.newInstance(), getSupportFragmentManager());
+    }
+
+    private void init() {
+        switch_incoming_call.setChecked(SharePreferenceManager.getIncomingCall(this));
+        switch_incoming_sms.setChecked(SharePreferenceManager.getIncomingSMS(this));
+        switch_normal.setChecked(SharePreferenceManager.getNormal(this));
+        switch_vibration.setChecked(SharePreferenceManager.getVibration(this));
+        switch_silent.setChecked(SharePreferenceManager.getSilent(this));
+
+        switch_incoming_call.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharePreferenceManager.setIncomingCall(MainActivity.this, isChecked);
+            }
+        });
+
+        switch_incoming_sms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharePreferenceManager.setIncomingSMS(MainActivity.this, isChecked);
+            }
+        });
+
+        switch_normal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharePreferenceManager.setNormal(MainActivity.this, isChecked);
+            }
+        });
+
+        switch_vibration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharePreferenceManager.setVibration(MainActivity.this, isChecked);
+            }
+        });
+
+        switch_silent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharePreferenceManager.setSilent(MainActivity.this, isChecked);
+            }
+        });
     }
 }
