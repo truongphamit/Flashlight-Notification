@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         final Switch switchOnOff = (Switch) menu.findItem(R.id.switch_control).getActionView().findViewById(R.id.switch_control);
+
+        if (!Utils.hasFlash(MainActivity.this)) {
+            switchOnOff.setClickable(false);
+            return false;
+        }
+
         boolean isON = SharePreferenceManager.getOnOff(this);
         switchOnOff.setChecked(isON);
 
