@@ -11,6 +11,16 @@ import com.pqs.flashlightnotification.utils.Constant;
  */
 
 public class SharePreferenceManager {
+    public static void setOnOff(Context context, boolean i) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putBoolean(Constant.KEY_ON_OFF, i).apply();
+    }
+
+    public static boolean getOnOff(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constant.KEY_ON_OFF, false);
+    }
+
+
     public static void setOnLengthCall(Context context, int i) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit().putInt(Constant.KEY_ON_LENGTH_CALL, i).apply();
@@ -53,7 +63,7 @@ public class SharePreferenceManager {
     }
 
     public static int getTimesSMS(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Constant.KEY_TIMES_SMS, 4);
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Constant.KEY_TIMES_SMS, 2);
     }
 
     public static void setIncomingCall(Context context, boolean b) {
@@ -99,5 +109,14 @@ public class SharePreferenceManager {
 
     public static boolean getSilent(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constant.KEY_SILENT, true);
+    }
+
+    public static void setNotifications(Context context, boolean b) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putBoolean(Constant.KEY_NOTIFICATIONS, b).apply();
+    }
+
+    public static boolean getNotifications(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constant.KEY_NOTIFICATIONS, true);
     }
 }

@@ -40,7 +40,7 @@ public class Flash {
         }
     }
 
-    private void turnOnFlash() {
+    public void turnOnFlash() {
         if (!state) {
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             camera.setParameters(parameters);
@@ -49,7 +49,7 @@ public class Flash {
         }
     }
 
-    private void turnOffFlash() {
+    public void turnOffFlash() {
         if (state) {
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             camera.setParameters(parameters);
@@ -60,24 +60,22 @@ public class Flash {
 
     public static void test(final int on, final int off) {
         final Flash flash = Flash.getInstance();
-        int i = 0;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    flash.turnOnFlash();
-                    Thread.sleep(on);
-                    flash.turnOffFlash();
-                    Thread.sleep(off);
+                    for (int i = 0; i < 5; i++) {
+                        flash.turnOnFlash();
+                        Thread.sleep(on);
+                        flash.turnOffFlash();
+                        Thread.sleep(off);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         };
 
-        while (i < 5) {
-            runnable.run();
-            ++i;
-        }
+        runnable.run();
     }
 }

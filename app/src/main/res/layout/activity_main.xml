@@ -56,6 +56,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_incoming_call"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/incoming_call"
@@ -100,6 +101,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_incoming_sms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/incoming_sms"
@@ -141,6 +143,7 @@
                 android:src="@drawable/ic_normal" />
 
             <TextView
+                android:id="@+id/tv_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -162,7 +165,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/layout_vibratiom"
+            android:id="@+id/layout_vibration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
@@ -175,6 +178,7 @@
                 android:src="@drawable/ic_vibration" />
 
             <TextView
+                android:id="@+id/tv_virbation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -209,6 +213,7 @@
                 android:src="@drawable/ic_silent" />
 
             <TextView
+                android:id="@+id/tv_silent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -250,6 +255,7 @@
                 android:src="@drawable/ic_notifications" />
 
             <TextView
+                android:id="@+id/tv_notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -262,6 +268,7 @@
 
 
             <Switch
+                android:id="@+id/switch_notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
