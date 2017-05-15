@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pqs.flashlightnotification.R;
+import com.pqs.flashlightnotification.models.App;
 import com.pqs.flashlightnotification.utils.Utils;
 
 import java.util.List;
@@ -21,11 +22,11 @@ import java.util.List;
 
 public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapter.ViewHolder>{
     private Context context;
-    private List<ApplicationInfo> applicationInfos;
+    private List<App> apps;
 
-    public ApplicationsAdapter(Context context, List<ApplicationInfo> applicationInfos) {
+    public ApplicationsAdapter(Context context, List<App> apps) {
         this.context = context;
-        this.applicationInfos = applicationInfos;
+        this.apps = apps;
     }
 
     @Override
@@ -41,15 +42,24 @@ public class ApplicationsAdapter extends RecyclerView.Adapter<ApplicationsAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ApplicationInfo applicationInfo = applicationInfos.get(position);
-        holder.app_icon.setImageDrawable(Utils.getAppIcon(context, applicationInfo));
-        holder.app_name.setText(Utils.getAppName(context, applicationInfo));
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final App app = apps.get(position);
+        holder.app_icon.setImageDrawable(Utils.getAppIcon(context, app.getApplicationInfo()));
+        holder.app_name.setText(Utils.getAppName(context, app.getApplicationInfo()));
+
+        holder.checkBox.setChecked(app.isCheck());
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                app.setCheck(holder.checkBox.isChecked());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return applicationInfos.size();
+        return apps.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

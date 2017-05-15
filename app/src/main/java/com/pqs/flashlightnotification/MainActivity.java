@@ -1,7 +1,9 @@
 package com.pqs.flashlightnotification;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +26,8 @@ import com.pqs.flashlightnotification.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST = 1;
@@ -246,6 +250,11 @@ public class MainActivity extends AppCompatActivity {
         switch_notifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!Utils.isNotificationServiceEnabled(MainActivity.this)) {
+                    Utils.showNotificationPermissionDialog(MainActivity.this);switch_notifications.setChecked(!isChecked);
+                    return;
+                }
+
                 SharePreferenceManager.setNotifications(MainActivity.this, isChecked);
             }
         });

@@ -64,7 +64,7 @@ public class Flash {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 3; i++) {
                         flash.turnOnFlash();
                         Thread.sleep(on);
                         flash.turnOffFlash();

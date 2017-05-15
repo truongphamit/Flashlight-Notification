@@ -63,7 +63,7 @@ public class SharePreferenceManager {
     }
 
     public static int getTimesSMS(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Constant.KEY_TIMES_SMS, 2);
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Constant.KEY_TIMES_SMS, 3);
     }
 
     public static void setIncomingCall(Context context, boolean b) {
@@ -117,6 +117,6 @@ public class SharePreferenceManager {
     }
 
     public static boolean getNotifications(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constant.KEY_NOTIFICATIONS, true);
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constant.KEY_NOTIFICATIONS, false);
     }
 }
