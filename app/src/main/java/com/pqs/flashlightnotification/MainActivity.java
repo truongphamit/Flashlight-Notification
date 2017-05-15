@@ -2,6 +2,7 @@ package com.pqs.flashlightnotification;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -101,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (!Utils.hasFlash(MainActivity.this)) {
             switchOnOff.setClickable(false);
+            offView();
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Flash has not been detected", Snackbar.LENGTH_LONG);
+            snackbar.show();
             return false;
         }
 
